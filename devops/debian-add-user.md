@@ -1,5 +1,5 @@
 # Adding a user on Linux
-If you are responsible for administering a cluster and a large set of users, automation using Ansible (or alternatives) is the way to go. These instructions can come in handy when you are getting started or interested in knowing what happens under the hood of DevOps magic.
+No fluff instructions on how to add a user.
 
 ## Prerequisites
 The following information must be available in the work order to complete the task:
