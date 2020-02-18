@@ -15,7 +15,7 @@ The following information must be available in the work order to complete the ta
 It is not required to provide an e-mail address as a comment (-c option below), and in fact not recommended. Instead provide a meaninful "totem" that only the user can recognize to its purpose. We also recommend that the user set a short password on the key when prompted.
 
 ```shell
-> ssh-keygen -t rsa -b 4096 -c "my-totem" -f ~/.ssh/totem-rsa
+> ssh-keygen -t rsa -b 4096 -C "my-totem" -f ~/.ssh/totem-rsa
 > mkpasswd --method=sha-512
 ```
 
@@ -26,7 +26,7 @@ NOTE: never share your private key. Double check you are providing the contents 
 Copy the key and password hash to /tmp. Get the UID and group list from the work order. In the instructions below replace the $variables with values from the work order. The convention in most unixy systems is to use the first name of the user in lowercase.
 
 ```shell
-> sudo useradd -m -s /bin/bash -c $NUFullName -p /tmp/$NUPasswdHashFileName -u $NUUid $NUFirstName
+> sudo useradd -m -s /bin/bash -c $NUFullName -p $NUPasswdHash -u $NUUid $NUFirstName
 > sudo usermod -aG sudo $NUFirstName
 ```
 
@@ -54,3 +54,4 @@ Get the user to verify that they can successfully scp and ssh to the system on w
 - [Generating a new ssh key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)
 - [Use mkpasswd from whois package](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=116260)
 - [User add command](http://man7.org/linux/man-pages/man8/useradd.8.html)
+- [Ssh force password use](https://unix.stackexchange.com/questions/15138/how-to-force-ssh-client-to-use-only-password-auth)

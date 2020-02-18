@@ -39,8 +39,32 @@ task:
 ## Sys Admin steps
 Log in to the VPS instance as root over SSH and do the following.
 
+### Disable root login and password based ssh authentication
+NOTE:
+  do this step after verifying that a system administrator
+  can login using ssh pubkey!
+
+- Edit /etc/ssh/sshd_config and ensure the following settings:
+  ```shell
+  PermitRootLogin no
+  ClientAliveInterval 300
+  ClientAliveCountMax 600
+  PasswordAuthentication no
+  ```
+- Restart sshd
+  ```shell
+  systemctl restart sshd.service
+  ```
+
+### Update the system
+```shell
+  sudo apt update
+  sudo apt upgrade
+  sudo apt dist-upgrade
+```
+
 ### Close the gates that should not be open
-```console
+```shell
   sudo apt install ufw
   sudo apt install fail2ban
   sudo ufw allow SSH
@@ -52,7 +76,19 @@ Log in to the VPS instance as root over SSH and do the following.
 ```
 
 ### Get stingy and make the $5 VPS do more for us
-TBD...
+- check swap settings and adjust
+```console
+sysadm@localhost:~$ free -h
+              total        used        free      shared  buff/cache   available
+Mem:           996M         58M        447M        4.5M        489M        788M
+Swap:          511M          0B        511M
+
+sysadm@localhost:~$ sudo swapon -s
+Filename				Type		Size	Used	Priority
+/dev/sdb                               	partition	524284	0	-1
+```
+- make the swap spaces to be at least as much as the available memory
+- follow detailed steps available here https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-14-04
 
 ## Test
 The main tests are to ensure that ports you want to be open are open
